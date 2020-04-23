@@ -1,14 +1,18 @@
 <?php session_start();
+    require_once('functions/user.php');
 
-$errorCount = 0; 
 
-$first_name = $_POST['first_name'] != "" ?$_POST['first_name'] : $errorCount++;
-$last_name = $_POST['last_name'] != "" ?$_POST['last_name'] : $errorCount++;
-$email = $_POST['email'] != "" ?$_POST['email'] : $errorCount++;
-$password = $_POST['password'] != "" ?$_POST['password'] : $errorCount++;
-$gender = $_POST['gender'] != "" ?$_POST['gender'] : $errorCount++;
-$designation = $_POST['designation'] != "" ?$_POST['designation'] : $errorCount++;
-$department  = $_POST['department'] != "" ?$_POST['department'] : $errorCount++;
+$errorCount = 0;
+
+
+
+$first_name = $_POST['first_name'] != "" ? $_POST['first_name'] :  $errorCount++;
+$last_name = $_POST['last_name'] != "" ? $_POST['last_name'] :  $errorCount++;
+$email = $_POST['email'] != "" ? $_POST['email'] :  $errorCount++;
+$password = $_POST['password'] != "" ? $_POST['password'] :  $errorCount++;
+$gender = $_POST['gender'] != "" ? $_POST['gender'] :  $errorCount++;
+$designation = $_POST['designation'] != "" ? $_POST['designation'] :  $errorCount++;
+$department = $_POST['department'] != "" ? $_POST['department'] :  $errorCount++;
 
 $_SESSION['first_name'] = $first_name;
 $_SESSION['last_name'] = $last_name;
@@ -19,51 +23,47 @@ $_SESSION['department'] = $department;
 
 
 if($errorCount > 0){
-    $session_error = "you have " . $errorCount . " error";
+
+     $session_error = "You have " . $errorCount . " error";
     
-    if ($errorCount > 1) {
-       $session_error .= "s";
+    if($errorCount > 1) {        
+        $session_error .= "s";
     }
 
-    $session_error .= " in your form submission";
-    $_SESSION["error"] = $session_error;
-    
-   header("Location: register.php");
-}else {
-    
-    $allUsers = scandir("db/users/");
+    $session_error .=   " in your form submission";
+    $_SESSION["error"] = $session_error ;
 
-    $countAllUsers = count($allUsers);
+    header("Location: register.php");
 
-    $newUserId = $countAllUsers-1;
+}else{
 
+     $newUserId = ($countAllUsers-1);
 
     $userObject = [
-        "id" =>$newUserId,
-        "first_name" =>$first_name,
-        "last_name" =>$last_name,
-        "email" =>$email,
-        "password" =>password_hash($password, PASSWORD_DEFAULT),
-        "gender" =>$gender,
-        "designation" =>$designation,
-        "department" =>$department
+        'id'=>$newUserId,
+        'first_name'=>$first_name,
+        'last_name'=>$last_name,
+        'email'=>$email,
+        'password'=> password_hash($password, PASSWORD_DEFAULT),
+        'gender'=>$gender,
+        'designation'=>$designation,
+        'department'=>$department
     ];
 
-    
-    for ($counter = 0; $counter < $countAllUsers ; $counter++) {
+    /
+    $userExists = find_user($email);
 
-        $currentUser = $allUsers[$counter];
-
-        if($currentUser == $email . ".json"){
+        if($userExists){
             $_SESSION["error"] = "Registration Failed, User already exits ";
             header("Location: register.php");
             die();
         }
+        
 
-    }
     //save in the database;
-    file_put_contents("db/users/". $email . ".json", json_encode($userObject));
-    $_SESSION["error"] = "Registration Successful, you can now login " . $first_name;
+    save_user($userObject);
+
+    $_SESSION["message"] = "Registration Successful, you can now login " . $first_name;
     header("Location: login.php");
 }
 
