@@ -12,6 +12,7 @@ function print_alert(){
                     "</div>";
           
             session_destroy();
+            die();
         }
 
     }

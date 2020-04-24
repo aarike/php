@@ -50,7 +50,6 @@ if($errorCount > 0){
         'department'=>$department
     ];
 
-    /
     $userExists = find_user($email);
 
         if($userExists){

@@ -21,16 +21,11 @@
                 <a class="p-2 text-dark" href="login.php">Login</a> 
                 <a class="btn btn-primary" href="register.php">Register</a> 
                 
-            <?php }else if ($userObject->designation == 'patient') { ?>
-                
-                <a class="p-2 text-dark" href="patient.php">Patient</a>                
+            <?php }else { ?>
+                               
                 <a class="p-2 text-dark" href="reset.php">Reset Password</a>
                 <a class="p-2 text-dark" href="logout.php">Logout</a>
-            <?php }else{ ?>
-
-                <a class="p-2 text-dark" href="patient.php">Patient</a>                
-                <a class="p-2 text-dark" href="reset.php">Reset Password</a>
-                <a class="p-2 text-dark" href="logout.php">Logout</a>
+        
             <?php } ?>
         </nav>
        
