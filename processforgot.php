@@ -51,8 +51,11 @@ if($errorCount > 0){
         }
         
     }
-    set_alert('error',"Email not registered with us ERR: " . $email);
-   
+    
+   set_alert('error',"Email not registered with us ERR: " . $email);
     redirect_to("forgot.php");
 
 }
+header("Location: success.php");
+
+      set_alert('message',"Payment successful, here's your Reference Number: " . $ref);

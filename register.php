@@ -2,7 +2,7 @@
  require_once('functions/alert.php');
  
 if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
-    header("Location: dashboard.php");
+    header("Location: login.php");
 }
 
 
@@ -11,14 +11,8 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
     <div class="row col-6">
         <h3>Register</h3>
     </div>
+    
     <div class="row col-6">
-        <p><strong>Welcome, Please Register</strong></p>
-    </div>
-    <div class="row col-6">
-        <p>All Fields are required</p>
-    </div>
-    <div class="row col-6">
-
         <form method="POST" action="processregister.php">
         <p>
             <?php  print_alert(); ?>
@@ -31,7 +25,7 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
                         echo "value=" . $_SESSION['first_name'];                                                             
                     }                
                 ?>
-                type="text" class="form-control" name="first_name" placeholder="First Name">
+                type="text" class="form-control" name="first_name" placeholder="First Name" required>
             </p>
             <p>
                 <label class="label" for="last_name">Last Name</label><br>
@@ -41,10 +35,10 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
                         echo "value=" . $_SESSION['last_name'];                                                             
                     }                
                 ?>
-                type="text" class="form-control" name="last_name" placeholder="Last Name">
+                type="text" class="form-control" name="last_name" placeholder="Last Name" required>
             </p>
             <p>
-                <label class="label" for="email">Email</label><br />
+                <label class="label" for="email">Email</label><br>
                 <input
                 
                 <?php              
@@ -62,7 +56,7 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
             </p>
             <p>
                 <label class="label" for="gender">Gender</label><br>
-                <select class="form-control" name="gender" >
+                <select class="form-control" name="gender" required>
                 
                     <option value="">Select One</option>
                     <option 
@@ -84,7 +78,7 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
         
             <p>
                 <label class="label" for="designation">Designation</label><br>
-                <select class="form-control" name="designation" >
+                <select class="form-control" name="designation" required>
                 
                     <option value="">Select One</option>
                     <option 
@@ -101,6 +95,13 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
                         }                
                     ?>
                     >Patient</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Admin'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >Admin</option>
                 </select>
             </p>
             <p>
@@ -111,7 +112,7 @@ if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
                         echo "value=" . $_SESSION['department'];                                                             
                     }                
                 ?>
-                type="text" id="department" class="form-control" name="department" placeholder="Department"  />
+                type="text" id="department" class="form-control" name="department" placeholder="Department" required>
             
             </p>
             <p>

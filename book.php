@@ -1,4 +1,9 @@
 <?php include_once('lib/header.php');
+ require_once('functions/redirect.php');
+if(!isset($_SESSION['loggedIn']) ){
+    //redirect to dashboard
+    redirect_to("book.php");
+}
 
 ?>
 <div class="container">
@@ -7,53 +12,120 @@
     </div>
     <div class="row col-6">
         
-        <form method="POST" action="processbook.php">
-    
-                
+        <form method="POST" action="processbook.php">   
             <p>
-                <label lass="label" for="Full Name">Full Name</label><br>
-                <input type="text" class="form-control" name="full_name" placeholder="Full Name">
+                <label class="label" for="full_name">Full Name</label><br>
+                <input
+                <?php              
+                    if(isset($_SESSION['full_name'])){
+                        echo "value=" . $_SESSION['full_name'];                                                             
+                    }                
+                ?>
+                 type="text" class="form-control" name="full_name" placeholder="Full Name" required>
             </p>
 
             <p>
-                <label class="label" for="Phone Number">Phone Number</label><br>
-   		        <input type="text" class="form-control" name="phone number" placeholder="Phone Number">
+                <label class="label" for="email">Email</label><br>
+   		        <input 
+                   <?php              
+                    if(isset($_SESSION['email'])){
+                        echo "value=" . $_SESSION['email'];                                                             
+                    }                
+                ?>
+                   type="text" class="form-control" name="email" placeholder="Email" required>
 	        </p>
             <p>
                 <label class="label" for="birthdate">Date of Birth</label><br>
-                <input type="date" class="form-control" name="birthdate">
+                <input 
+                <?php              
+                    if(isset($_SESSION['birthdate'])){
+                        echo "value=" . $_SESSION['birthdate'];                                                             
+                    }                
+                ?>
+                type="date" class="form-control" name="birthdate">
 	        </p>
         
             <p>
-                <label class="label" for=" Date of appointment">Date of Appointment</label><br>
-                <input type="date" class="form-control" name="appointment">
+                <label class="label" for="date_appointment">Date of Appointment</label><br>
+                <input 
+                <?php              
+                    if(isset($_SESSION['date_appointment'])){
+                        echo "value=" . $_SESSION['date_appointment'];                                                             
+                    }                
+                ?>
+                type="date" class="form-control" name="date_appointment">
             </p>
             <p>
-                <label class="label" for="Time of Appointment">Time of Appointment</label><br>
-                <input type="time" class="form-control" name="appointment">
-            </p>     
+                <label class="label" for="time_appointment">Time of Appointment</label><br>
+                <input 
+                <?php              
+                    if(isset($_SESSION['time_appointment'])){
+                        echo "value=" . $_SESSION['time_appointment'];                                                             
+                    }                
+                ?>
+                type="time" class="form-control" name="time_appointment">
+            </p> 
+
             <p>
-                <label class="label" for="Nature of Appointment">Nature of Appointment</label><br>
-   		        <select >
-                    <option>consultation</option>
-                    <option>Caesarian Section</option>
-                    <option>Dental Section</option>
-                    <option>Therapist Section</option>
-                    <option>General Surgery</option>
-                    <option>Other</option>
-                </select> 
-                    
-	        </p>
+                <label class="label" for="nature_appointment">Nature of Appointment</label><br>
+                <select class="form-control" name="nature_appointment" required>
+                
+                    <option value="">Select One</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['nature_appointment']) && $_SESSION['nature_appointment'] == 'Consultation'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >Consultation</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['nature_appointment']) && $_SESSION['nature_appointment'] == 'Therapy Section'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >Therapy Section</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['nature_appointment']) && $_SESSION['nature_appointment'] == 'General Surgery'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >General Surgery</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['nature_appointment']) && $_SESSION['nature_appointment'] == 'Dental Care'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >Dental Care</option>
+                    <option 
+                    <?php              
+                        if(isset($_SESSION['nature_appointment']) && $_SESSION['nature_appointment'] == 'Other'){
+                            echo "selected";                                                           
+                        }                
+                    ?>
+                    >Other</option>
+                </select>
+            </p>    
             <p>
-	           <label class="label" for="Initial Complaint">Initial Complaint</label><br>
-		       <textarea  cols="45" rows="5" placeholder="Write your complaint here..."></textarea> 
+	           <label class="label" for="initial_complaint">Initial Complaint</label><br>
+		       <textarea
+               <?php              
+                    if(isset($_SESSION['initial_complaint'])){
+                        echo "value=" . $_SESSION['initial_complaint'];                                                             
+                    }                
+                ?>
+                name="initial_complaint" cols="45" rows="5" placeholder="Write your complaint here..."></textarea> 
 	        </p>
 
             <p>
                 <button class="btn btn-sm btn-primary" type="submit">Submit Form</button>
             </p>
+
             <p>
-                <a href="patient.php">Go Back</a>
+                <a href="pay.php">Pay Bill</a> |
+                <a href="patients.php">Go Back</a>
             </p>
         </form>
     </div>

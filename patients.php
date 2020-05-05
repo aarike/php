@@ -1,7 +1,4 @@
-<?php include_once('lib/header.php'); 
-
-
-?>
+<?php include_once('lib/header.php'); ?>
 
 
 <h3>Dashboard</h3>

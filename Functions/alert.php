@@ -1,7 +1,7 @@
 <?php 
 
 function print_alert(){
-    //for printing message or error;
+    
     $types = ['message','info','error'];
     $colors = ['success','info','danger'];
       

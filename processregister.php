@@ -24,7 +24,7 @@ $_SESSION['department'] = $department;
 
 if($errorCount > 0){
 
-     $session_error = "You have " . $errorCount . " error";
+    $session_error = "You have " . $errorCount . " error";
     
     if($errorCount > 1) {        
         $session_error .= "s";
@@ -39,7 +39,7 @@ if($errorCount > 0){
 
      $newUserId = ($countAllUsers-1);
 
-    $userObject = [
+     $userObject = [
         'id'=>$newUserId,
         'first_name'=>$first_name,
         'last_name'=>$last_name,
